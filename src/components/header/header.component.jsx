@@ -1,5 +1,6 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import { auth } from '../../firebase/firebase.utils';
 
@@ -16,7 +17,7 @@ const Header = ({ currentUser }) => (
                 SHOP
             </Link>
             <Link className='option' to="/shop">
-                Contact
+                CONTACT
             </Link>
             {
                 currentUser ? 
@@ -33,4 +34,9 @@ const Header = ({ currentUser }) => (
    
 );
 
-export default Header;
+//variable can be named anything but mpaStateToProps is standard with redux codebases.
+const mapStateToProps = (state) => ({
+   currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header); // connect(mapStateToProps)(header) is used to 'connect' or give access to the state from redux to header
