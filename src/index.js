@@ -24,3 +24,4 @@ ReactDOM.render(
     );
 //persistor is written inside of store.js
 
+// PersistGate is used for session persitence
