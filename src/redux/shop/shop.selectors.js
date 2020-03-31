@@ -1,10 +1,10 @@
 import { createSelector } from 'reselect';
 
-const selectShop = state => state.shop;
+const selectShop = state => state.shop; //shop is from rootReducer where {shop: shopReducer}
 
 export const selectCollections = createSelector(
   [selectShop],
-  shop => shop.collections
+  shop => shop.collections // collections is from shopReducer INITIAL_STATE
 );
 
 //converting object key to array and mapping for collection-overview

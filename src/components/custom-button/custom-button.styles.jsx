@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-
+// { css } lets us write css that we can then use to conditionally render css such as below
 const buttonStyles = css`
 background-color: black;
 color: white;
@@ -31,6 +31,8 @@ color: white;
 }
 `;
 
+// function called inside custombuttoncontainer to conditionally render styles
+// based on props of button.
 const getButtonStyles = props => {
     if(props.isGoogleSignIn) {
         return googleSignInStyles
@@ -53,6 +55,7 @@ cursor: pointer;
 display: flex;
 justify-content: center;
 
-${getButtonStyles}
+${getButtonStyles} 
 `;
-
+//${getButtonStyles} being called inside the styled component to conditionaly render
+//styles.

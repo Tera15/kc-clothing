@@ -13,6 +13,8 @@ const config = {
     measurementId: "G-YRSBLDC7R2"
   };
 
+  firebase.initializeApp(config);
+
   export const createUserProfileDocument = async (userAuth, additionalData) => {
     if (!userAuth) return;
 
@@ -40,7 +42,44 @@ const config = {
     return userRef;
   }
 
-  firebase.initializeApp(config);
+  export const addCollectionAndDocuments = async (collectionKey, objectsToAdd) => {
+      const collectionRef = firestore.collection(collectionKey);
+      console.log(collectionRef)
+
+      //batching all calls together into one big request
+      const batch = firestore.batch();
+      objectsToAdd.forEach(obj => {
+          const newDocRef = collectionRef.doc(); // create new doc ref and generate a random id for each one
+            batch.set(newDocRef, obj)
+    });
+        return await batch.commit()
+  };
+
+
+  //parsing collections snapshot to useable format for the front end.
+ export const convertCollectionsSnapshotToMap = (collections) => {
+      const transformedCollection = collections.docs.map(doc => {
+          const { title, items } = doc.data();
+
+          return {
+              //encode URI encodes the returned routeName into a url readable format read more on MDN
+              routeName: encodeURI(title.toLowerCase()),
+              id: doc.id,
+              title,
+              items
+          }
+       });
+       
+        return  transformedCollection.reduce((accumulator, collection) => {
+            // destructuring title out of items array returned from collections collection in firestore.
+            // using reduce to return an object containing correct information pertaining to each collection Item
+        accumulator[collection.title.toLowerCase()] = collection;
+        return accumulator
+         } ,{})
+     
+  }
+
+  
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
