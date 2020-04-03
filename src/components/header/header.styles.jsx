@@ -37,6 +37,9 @@ justify-content: flex-end;
 export const OptionLink = styled(Link)`
 padding: 10px 15px;
 cursor: pointer;
+:hover{
+    border-bottom: 2px solid black;
+}
 `
 //
 // export const OptionDiv = styled.div`
