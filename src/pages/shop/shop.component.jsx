@@ -1,15 +1,18 @@
 import React from 'react';
 
+import { createStructuredSelector } from 'reselect';
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux'
 
-import { updateCollections } from '../../redux/shop/shop.actions';
+import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
+import { selectIsCollectionFetching} from '../../redux/shop/shop.selectors';
 
 import CollectionsOverview from '../../components/collections-overview/collections-overview.compnent';
 import CollectionPage from '../collection/collection.component';
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
 
-import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
+
+
 
 
 //match comes from route, it is one of three props passed into component nested in <Route />
@@ -33,40 +36,31 @@ const CollectionPageWithSpinner = WithSpinner(CollectionPage)
 
 
 class ShopPage extends React.Component {
-//React will invoke constructor and super for us.
-state = {
-  loading: true
-}
 
-  unsubscribeFromSnapshop = null
   componentDidMount() {
-    const { updateCollections } = this.props
-    const collectionRef = firestore.collection('collections'); // collections collection in firestore
-    // whenever snapShot updates, or mounts for the first time firebase sends snapShot of 
-    //collection objects array at the time of mount/update
-    this.unsubscribeFromSnapshop = collectionRef.onSnapshot(async snapshot => {
-     const collectionsMap = convertCollectionsSnapshotToMap(snapshot);
-     updateCollections(collectionsMap);
-    this.setState({ loading: false })
-    });
+   const { fetchCollectionsStartAsync } = this.props
+   fetchCollectionsStartAsync()
   }
 
   render() {
-    const { match, } = this.props;
-    const { loading } = this.state;
+    const { match, isCollectionFetching } = this.props;
   return  (
     // render being used to use HoC spinner with collectionsOverview and CollectionPage components
     // this is how to render props down through into the components
       <div className='shop-page'>           
-        <Route exact path={`${match.path}`} render={(props) => <CollectionsOverviewWithSpinner isLoading={loading} {...props}/>} />
-        <Route path={`${match.path}/:collectionId`} render={(props) => <CollectionPageWithSpinner isLoading={loading} {...props} />} />
+        <Route exact path={`${match.path}`} render={(props) => <CollectionsOverviewWithSpinner isLoading={isCollectionFetching} {...props}/>} />
+        <Route path={`${match.path}/:collectionId`} render={(props) => <CollectionPageWithSpinner isLoading={isCollectionFetching} {...props} />} />
       </div>
     ); 
   }
 };
 
-const mapDispatchToProps = dispatch => ({
-  updateCollections: collectionsMap => dispatch(updateCollections(collectionsMap))
+const mapStateToProps = createStructuredSelector({
+  isCollectionFetching: selectIsCollectionFetching 
 })
 
-export default connect(null, mapDispatchToProps)(ShopPage);
+const mapDispatchToProps = dispatch => ({
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);

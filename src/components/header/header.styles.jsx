@@ -39,6 +39,7 @@ padding: 10px 15px;
 cursor: pointer;
 :hover{
     border-bottom: 2px solid black;
+    padding-bottom: 8px
 }
 `
 //
