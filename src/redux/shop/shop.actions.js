@@ -1,6 +1,5 @@
 import ShopActionTypes from './shop.types';
 
-import thunk from 'redux-thunk';
 
 import { firestore, convertCollectionsSnapshotToMap } from '../../firebase/firebase.utils';
 

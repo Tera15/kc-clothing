@@ -1,15 +1,18 @@
 import React from 'react';
 
-import { createStructuredSelector } from 'reselect';
+
 import { Route } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 import { fetchCollectionsStartAsync } from '../../redux/shop/shop.actions';
-import { selectIsCollectionFetching} from '../../redux/shop/shop.selectors';
 
-import CollectionsOverview from '../../components/collections-overview/collections-overview.compnent';
-import CollectionPage from '../collection/collection.component';
-import WithSpinner from '../../components/with-spinner/with-spinner.component';
+
+
+import CollectionsOverviewContainer from '../../components/collections-overview/collections-overview.container';
+
+
+import CollectionPageContainer from '../collection/collection.container';
+
 
 
 
@@ -30,8 +33,8 @@ import WithSpinner from '../../components/with-spinner/with-spinner.component';
 //console.log(match) and inspect the object to see where categoryID comes from to better understand 
 
 // HoC
-const CollectionsOverviewWithSpinner = WithSpinner(CollectionsOverview)
-const CollectionPageWithSpinner = WithSpinner(CollectionPage)
+
+
 
 
 
@@ -39,28 +42,28 @@ class ShopPage extends React.Component {
 
   componentDidMount() {
    const { fetchCollectionsStartAsync } = this.props
+   
    fetchCollectionsStartAsync()
+   
   }
 
   render() {
-    const { match, isCollectionFetching } = this.props;
-  return  (
-    // render being used to use HoC spinner with collectionsOverview and CollectionPage components
-    // this is how to render props down through into the components
-      <div className='shop-page'>           
-        <Route exact path={`${match.path}`} render={(props) => <CollectionsOverviewWithSpinner isLoading={isCollectionFetching} {...props}/>} />
-        <Route path={`${match.path}/:collectionId`} render={(props) => <CollectionPageWithSpinner isLoading={isCollectionFetching} {...props} />} />
+    const { match } = this.props;
+    //CollectionPageContainer and CollectionsOverviewContainer are using the container patter to keep state updates regarding spinner HoC -
+    // where they belong with their respective components. (isloaded and isFetching should be handled through CollectionOverview and CollectionPage)
+    return  (
+      <div className='shop-page'>            
+        <Route exact path={`${match.path}`} component={CollectionsOverviewContainer} />
+        <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer} />
       </div>
     ); 
   }
 };
 
-const mapStateToProps = createStructuredSelector({
-  isCollectionFetching: selectIsCollectionFetching 
-})
+
 
 const mapDispatchToProps = dispatch => ({
-  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync())
+  fetchCollectionsStartAsync: () => dispatch(fetchCollectionsStartAsync)
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopPage);
+export default connect(null, mapDispatchToProps)(ShopPage);
