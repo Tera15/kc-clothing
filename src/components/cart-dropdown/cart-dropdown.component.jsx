@@ -1,11 +1,9 @@
 import React from 'react';
-import { connect } from 'react-redux';
-// import { createStructuredSelector } from 'reselect';
 import { withRouter } from 'react-router-dom';
 
 import CustomButton from '../custom-button/custom-button.component';
 import CartItem from '../cart-item/cart-item.component';
-// import { selectCartItems } from '../../redux/cart/cart.selectors';
+
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import './cart-dropdown.styles.scss';
@@ -33,11 +31,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
     </div>
 );
 
-//params destructed off of state (nested object destructure)
-// const mapStateToProps = createStructuredSelector({
-//     cartItems: selectCartItems
-// });
 
-export default withRouter((CartDropdown)); //evaluates from inside out
+export default withRouter(CartDropdown); //evaluates from inside out
                                                                     // higher order component withRouter() taking:
                                                                     // the HoC connect(mapStateToProps)(CartDropdown) as an argument
