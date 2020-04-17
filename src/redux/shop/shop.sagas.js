@@ -12,7 +12,6 @@ import {
 } from './shop.actions';
 
 export function* fetchCollectionsAsync(){
-    yield console.log('im tired')
 try {
 
     const collectionRef = firestore.collection('collections');

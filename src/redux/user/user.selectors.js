@@ -4,8 +4,14 @@ import { createSelector } from 'reselect';
 const selectUser = state => state.user;
 
 
+
 export const selectCurrentUser = createSelector(
     // array of input selectors. alternatively can be passed in as arguments.
 [selectUser], 
 (user) => user.currentUser
+);
+
+export const selectIsFetching = createSelector(
+    [selectUser],
+    user => !user.isFetching
 );
