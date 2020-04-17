@@ -31,8 +31,7 @@ class SignUp extends React.Component {
             alert("passwords don't match")
             return;
         }
-
-        try {
+        
             signUpStart(displayName, email, password)
             
 
@@ -44,9 +43,7 @@ class SignUp extends React.Component {
             confirmPassword: ''
         });
 
-        } catch (error) {
-            console.error(error);
-        } 
+       
     };
 
     handleChange = event => {
