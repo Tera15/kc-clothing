@@ -31,8 +31,10 @@ class SignUp extends React.Component {
             alert("passwords don't match")
             return;
         }
-        
+
+           
             signUpStart(displayName, email, password)
+           
             
 
             //clears form inputs
