@@ -12,7 +12,7 @@ export const addItemToCart = (cartItems, cartItemToAdd) => {
     }
     return [...cartItems, {...cartItemToAdd, quantity: 1}];
 };
-
+console.log(typeof(existingCartItem))
 //
 export const removeItemFromCart = (cartItems, cartItemToRemove) => {
     const existingCartItem = cartItems.find(

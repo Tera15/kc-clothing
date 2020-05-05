@@ -25,5 +25,5 @@ export const store = createStore(rootReducer, applyMiddleware(...middlewares));
 sagaMiddleware.run(rootSaga)
 
 export const persistor = persistStore(store); // session persistance 
-
-export default { store, persistor };
+console.log(typeof(sagaMiddleware))
+export default { store, persistor }; 

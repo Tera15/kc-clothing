@@ -8,8 +8,9 @@ import CollectionPage from './collection.component';
 
 const mapStateToProps = createStructuredSelector({
     isLoading: state => !selectIsCollectionsLoaded(state) // map state to porps isLoading is a function that takes in state to determine bool
+    
 });
-
+console.log(typeof(withSpinner))
 
 const CollectionPageContainer = compose(
     connect(mapStateToProps),

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 
 import { Route } from 'react-router-dom';
@@ -38,17 +38,15 @@ import CollectionPageContainer from '../collection/collection.container';
 
 
 
-class ShopPage extends React.Component {
+const ShopPage = ({ match, fetchCollectionsStart }) => {
 
-  componentDidMount() {
-   const { fetchCollectionsStart} = this.props
-   
-   fetchCollectionsStart()
-   
-  }
+  useEffect(() => {
+    fetchCollectionsStart()
+  }, [fetchCollectionsStart])
+  
 
-  render() {
-    const { match } = this.props;
+  
+   
     //CollectionPageContainer and CollectionsOverviewContainer are using the container patter to keep state updates regarding spinner HoC -
     // where they belong with their respective components. (isloaded and isFetching should be handled through CollectionOverview and CollectionPage)
     return  (
@@ -58,12 +56,12 @@ class ShopPage extends React.Component {
       </div>
     ); 
   }
-};
+
 
 
 
 const mapDispatchToProps = dispatch => ({
   fetchCollectionsStart: () => dispatch(fetchCollectionsStart())
-})
+});
 
 export default connect(null, mapDispatchToProps)(ShopPage);
