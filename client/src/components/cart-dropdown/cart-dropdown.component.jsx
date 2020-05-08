@@ -1,34 +1,40 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 
-import CustomButton from '../custom-button/custom-button.component';
-import CartItem from '../cart-item/cart-item.component';
+import { withRouter } from 'react-router-dom';
 
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
-import './cart-dropdown.styles.scss';
+
+
+import CartItem from '../cart-item/cart-item.component';
+import {
+        CartDropDownContainer,
+        EmptyMessageComponent,
+        CartItemsContainer,
+        CustomButtonContainer 
+    } from './cart-dropdown.styles';
 
 // dispatch is passed as a prop to component from connect if connect is not passed a second argument of mapDispatchToProps
 // usefull to not have to write unnecessary mapDispatchToProps
 const CartDropdown = ({ cartItems, history, dispatch }) => (
-    <div className="cart-dropdown">
-        <div className="cart-items">
+    <CartDropDownContainer>
+        <CartItemsContainer>
             {   
                 cartItems.length ? // if greater than zero render cartItems otherwise render empty message span
                 cartItems.map( cartItem => (
                     <CartItem key={cartItem.id} item={cartItem} />
                 ))
                 :
-                <span className='empty-message'>Your cart is empty</span>
+                <EmptyMessageComponent>Your Cart Is Empty</EmptyMessageComponent>
             }
-        </div>
-        <CustomButton onClick={
+        </CartItemsContainer>
+        <CustomButtonContainer onClick={
             () => { 
                 history.push('/checkout'); 
                 dispatch(toggleCartHidden());
             }}
-        >GO TO CHECKOUT</CustomButton>
-    </div>
+        >GO TO CHECKOUT</CustomButtonContainer>
+    </CartDropDownContainer>
 );
 
 

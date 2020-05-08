@@ -8,7 +8,7 @@ import { googleSignInStart, emailSignInStart } from '../../redux/user/user.actio
 
 import { connect } from 'react-redux'
 
-import  './sign-in.styles.scss';
+import { SignInContainer, ButtonsContainer } from './sign-in.styles';
 
 const SignIn = ({ emailSignInStart, googleSignInStart }) => {
     const [userCredentials, setCredentials] = useState({email: '', password: ''})
@@ -29,7 +29,7 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
     }
         
         return(
-            <div className="sign-in">
+            <SignInContainer>
                 <h2>I already have an account</h2>
                 <span>Sign in with your email and password</span>
                 <form onSubmit={handleSubmit}>
@@ -51,13 +51,13 @@ const SignIn = ({ emailSignInStart, googleSignInStart }) => {
                     required
                     />
                 
-                <div className='buttons'>
+                <ButtonsContainer>
                     <CustomButton type='submit'>Sign In</CustomButton>
                     <CustomButton onClick={googleSignInStart} type='button' isGoogleSignIn>Sign in with google</CustomButton>
                     {/*isGoogleSignIn will evaluate to true if no value passed. Help to conditionally render our button*/}
-                </div>
+                </ButtonsContainer>
                 </form>
-            </div>
+            </SignInContainer>
         );
     }
 
