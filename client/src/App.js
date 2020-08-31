@@ -31,7 +31,6 @@ const { checkUserSession } = this.props
 
   render(){
     return(
-      
       <div>
         <GlobalStyles/>
         <Header/>
@@ -47,7 +46,6 @@ const { checkUserSession } = this.props
            : (<SignInAndSignUpPageContainer/>)} 
            />
         </Switch>
-        
       </div>
     );
   }
@@ -57,10 +55,10 @@ const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 })
 const mapDispatchToProps = dispatch => ({
-checkUserSession: () => dispatch(checkUserSession())
+  checkUserSession: () => dispatch(checkUserSession())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(App); //null as first argument in connect because I dont need mapStateToProps in this particular component
+export default connect(mapStateToProps, mapDispatchToProps)(App); 
 
 
 

@@ -15,10 +15,6 @@ export const TitleComponent = styled.h1`
       margin-bottom: 25px;
       padding-left:12.5px;
       cursor: pointer;
-      &:hover{
-        border-left: 2px solid black;
-        padding-left: 10.5px 
-      }
 `;
 
 export const PreviewContainer = styled.div`
