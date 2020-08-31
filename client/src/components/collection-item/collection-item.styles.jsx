@@ -33,13 +33,18 @@ export const PriceContainer = styled.span`
 `;
 
 export const CustomButtonContainer = styled(CustomButton)`
-  display: none;
-   width: 80%;
-      opacity: 0.7;
-      position: absolute;
-      top: 255px;
+    display: none;
+    width: 80%;
+    opacity: 0.7;
+    position: absolute;
+    top: 255px;
     
-      
+    @media screen and (max-width: 800px) {
+        display: block;
+        opacity: 0.9;
+        min-width: unset;
+        padding: 0 10 0 10;
+    }  
 `;
 export const CollectionItemContainer = styled.div`
     width: 22vw;
@@ -55,4 +60,16 @@ export const CollectionItemContainer = styled.div`
         opacity: 0.85;
         display: flex;
     }
+
+    @media screen and (max-width: 800px) {
+            width: 40vw;
+            &:hover {
+                .image {
+                    opacity: unset;
+                }
+                button{
+                    opacity: unset;
+                }
+            }
+        }
 `;

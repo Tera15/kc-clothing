@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import {Switch, Route, Redirect} from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
@@ -14,6 +13,7 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
 
+import { GlobalStyles } from './global.styles'
 
 class App extends React.Component{
  
@@ -22,7 +22,7 @@ class App extends React.Component{
 
   componentDidMount() {
 const { checkUserSession } = this.props
-    checkUserSession()
+    checkUserSession();
 }
 
   componentWillUnmount() {
@@ -31,7 +31,9 @@ const { checkUserSession } = this.props
 
   render(){
     return(
+      
       <div>
+        <GlobalStyles/>
         <Header/>
         <Switch>
           <Route exact path='/' component={HomePage} />
@@ -45,6 +47,7 @@ const { checkUserSession } = this.props
            : (<SignInAndSignUpPageContainer/>)} 
            />
         </Switch>
+        
       </div>
     );
   }
