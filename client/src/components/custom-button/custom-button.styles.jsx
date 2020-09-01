@@ -56,6 +56,10 @@ display: flex;
 justify-content: center;
 
 ${getButtonStyles} 
+
+@media screen and (max-width: 800px) {
+  padding: unset;
+}
 `;
 //${getButtonStyles} being called inside the styled component to conditionaly render
 //styles.
